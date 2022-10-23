@@ -10,6 +10,7 @@ nan-J NovelAI club
 Put `nai2local.js` into your `stable-diffusion-webui/javascript`
 ## Usage
 <img width="201" src="https://user-images.githubusercontent.com/113022648/197382468-65f4a96d-48af-4890-8fcf-0ec7c3b9ec3a.png">
+
 Simply click on `NAIConvert`.
 It will automatically process the brackets, prefix them with a quality tag, and insert a default value in the negative prompt.
 Multipliers are rounded off to four decimal places.
