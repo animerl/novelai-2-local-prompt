@@ -1,12 +1,7 @@
 // Thanks to the 5ch user who wrote the original script.
-// https://rentry.org/43zdr
-// ID:8+9FG8Jy0
-// nan-J NovelAi Club
-// Changes:
-// - Added round feature
-// - Fix typo(?) : "curley" -> "curly"
-// - Change button text "変換" -> "NAIConvert"
-// - Change word : "negativep" -> "negprompt"
+// Original ID:8+9FG8Jy0
+// Improved Script https://rentry.org/43zdr
+// nan-J NovelAI Club
 
 // Maximum number of histories will be kept
 const MaxHistory = 10;
