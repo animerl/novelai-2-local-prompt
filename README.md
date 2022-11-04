@@ -7,7 +7,10 @@ https://github.com/naisd5ch/novel-ai-5ch-wiki-js
 nan-J NovelAI club
 # en
 ## INSTALL
-Put `nai2local.js` into your `stable-diffusion-webui/javascript`
+~~Put `nai2local.js` into your `stable-diffusion-webui/javascript`~~  
+Recommended:  
+`git clone https://github.com/animerl/novelai-2-local-prompt.git extentions/novelai-2-local-prompt`  
+Alternatively, you can use WebUI's `Extentions` tab
 ## Usage
 <img width="201" src="https://user-images.githubusercontent.com/113022648/197382468-65f4a96d-48af-4890-8fcf-0ec7c3b9ec3a.png">
 
@@ -24,7 +27,10 @@ masterpiece, best quality,
 Click `History` to call back previously generated prompts, starting with the newest. The default maximum number of saves is 10(`MaxHistory`).
 # ja
 ## INSTALL
-`nai2local.js`を`stable-diffusion-webui/javascript`に入れてください。
+~~`nai2local.js`を`stable-diffusion-webui/javascript`に入れてください。~~  
+推奨:  
+`git clone https://github.com/animerl/novelai-2-local-prompt.git extentions/novelai-2-local-prompt`  
+もしくは、WebUIの`Extentions`タブからインストール。
 ##
 <img width="201" src="https://user-images.githubusercontent.com/113022648/197382468-65f4a96d-48af-4890-8fcf-0ec7c3b9ec3a.png">
 
