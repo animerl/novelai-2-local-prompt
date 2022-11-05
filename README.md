@@ -1,7 +1,12 @@
 # novelai-2-local-prompt
 Script for Stable-Diffusion WebUI (AUTOMATIC1111) to convert the prompt format used by NovelAI.  
 [English](#en)  [日本語](#ja)
-# Credits
+## tldr
+Add a button to convert the prompts used in NovelAI for use in the WebUI.  
+In addition, add a button that allows you to recall a previously used prompt.  
+NovelAIで使われるプロンプトを、WebUIで使えるように変換するボタンを追加します。  
+加えて、前に使ったプロンプトを呼び戻すことができるボタンも追加します。  
+## Credits
 https://rentry.org/43zdr  
 https://github.com/naisd5ch/novel-ai-5ch-wiki-js  
 nan-J NovelAI club
