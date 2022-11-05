@@ -13,9 +13,8 @@ nan-J NovelAI club
 # en
 ## INSTALL
 ~~Put `nai2local.js` into your `stable-diffusion-webui/javascript`~~  
-Recommended:  
-`git clone https://github.com/animerl/novelai-2-local-prompt.git extensions/novelai-2-local-prompt`  
-Alternatively, you can use WebUI's `Extensions` tab
+Recommended: Use WebUI's `Extensions` tab  
+(Alternative):`git clone https://github.com/animerl/novelai-2-local-prompt.git extensions/novelai-2-local-prompt`  
 ## Usage
 <img width="201" src="https://user-images.githubusercontent.com/113022648/197382468-65f4a96d-48af-4890-8fcf-0ec7c3b9ec3a.png">
 
@@ -33,9 +32,9 @@ Click `History` to call back previously generated prompts, starting with the new
 # ja
 ## INSTALL
 ~~`nai2local.js`を`stable-diffusion-webui/javascript`に入れてください。~~  
-推奨:  
-`git clone https://github.com/animerl/novelai-2-local-prompt.git extensions/novelai-2-local-prompt`  
-もしくは、WebUIの`Extensions`タブからインストール。
+推奨:
+WebUIの`Extensions`タブからインストール。  
+もしくは、手動で:`git clone https://github.com/animerl/novelai-2-local-prompt.git extensions/novelai-2-local-prompt`  
 ##
 <img width="201" src="https://user-images.githubusercontent.com/113022648/197382468-65f4a96d-48af-4890-8fcf-0ec7c3b9ec3a.png">
 
