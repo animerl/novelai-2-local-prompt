@@ -46,7 +46,7 @@ function round(value) {
 }
 function convert(input) {
   const re_attention = /\{|\[|\}|\]|[^\{\}\[\]]+/gmu;
-  let text = input.replaceAll("(", "\\(").replaceAll(")", "\\)");
+  let text = input.replaceAll("(", "\\(").replaceAll(")", "\\)").replace(/\\{2,}(\(|\))/gim,'\\$1');
 
   let res = [];
 
