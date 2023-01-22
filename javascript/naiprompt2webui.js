@@ -46,7 +46,10 @@ function round(value) {
 }
 function convert(input) {
   const re_attention = /\{|\[|\}|\]|[^\{\}\[\]]+/gmu;
-  let text = input.replaceAll("(", "\\(").replaceAll(")", "\\)").replace(/\\{2,}(\(|\))/gim,'\\$1');
+  let text = input
+    .replaceAll("(", "\\(")
+    .replaceAll(")", "\\)")
+    .replace(/\\{2,}(\(|\))/gim, "\\$1");
 
   let res = [];
 
@@ -184,11 +187,11 @@ function onClickUndo() {
 }
 
 onUiUpdate(function () {
-  let parentArea = gradioApp().querySelector("#toprow");
+  let parentArea = gradioApp().querySelector("#txt2img_toprow");
   let generateBtn = gradioApp().querySelector("#txt2img_generate");
-  let beforeElement = gradioApp().querySelector("#roll_col");
+  let actionsColumn = gradioApp().querySelector("#txt2img_actions_column");
 
-  if (parentArea == null || generateBtn == null || beforeElement == null)
+  if (parentArea == null || generateBtn == null || actionsColumn == null)
     return;
   if (gradioApp().querySelector("#nai2local") != null) return;
 
@@ -196,9 +199,8 @@ onUiUpdate(function () {
 
   let nai2LocalArea = document.createElement("div");
   nai2LocalArea.id = "nai2local";
-  nai2LocalArea.className = "overflow-hidden flex flex-col relative col gap-4";
-  nai2LocalArea.style =
-    "min-width: min(110px, 100%); max-width: 120px; flex-grow: 1; padding: 0em; padding-top: 0.4em;";
+  nai2LocalArea.className = "overflow-hidden flex col gap-4";
+  nai2LocalArea.style = "padding: 0.4em 0em";
 
   let convertBtn = document.createElement("button");
   convertBtn.id = "nai2localconvert";
@@ -220,5 +222,5 @@ onUiUpdate(function () {
   undoBtn.addEventListener("click", onClickUndo);
   nai2LocalArea.appendChild(undoBtn);
 
-  parentArea.insertBefore(nai2LocalArea, beforeElement.nextSibling);
+  actionsColumn.append(nai2LocalArea);
 });
