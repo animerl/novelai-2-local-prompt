@@ -119,6 +119,12 @@ function convert(input) {
   return result;
 }
 
+function dispatchInputEvent(target) {
+  let inputEvent = new Event("input");
+  Object.defineProperty(inputEvent, "target", { value: target });
+  target.dispatchEvent(inputEvent);
+}
+
 function onClickConvert() {
   const default_prompt = "masterpiece, best quality,\n";
   const default_negative =
@@ -134,7 +140,7 @@ function onClickConvert() {
     }
   }
   prompt.value = result;
-  prompt.dispatchEvent(new Event("input", { bubbles: true }));
+  dispatchInputEvent(prompt);
 
   result = "";
   let negprompt = gradioApp().querySelector(
@@ -150,7 +156,7 @@ function onClickConvert() {
     result = default_negative;
   }
   negprompt.value = result;
-  negprompt.dispatchEvent(new Event("input", { bubbles: true }));
+  dispatchInputEvent(negprompt);
 }
 
 function onClickGenerate() {
@@ -171,7 +177,7 @@ function onClickUndo() {
   } else {
     prompt.value = prePrompt;
   }
-  prompt.dispatchEvent(new Event("input", { bubbles: true }));
+  dispatchInputEvent(prompt);
 
   let negprompt = gradioApp().querySelector(
     "#txt2img_neg_prompt > label > textarea"
@@ -183,7 +189,7 @@ function onClickUndo() {
   } else {
     negprompt.value = prenegprompt;
   }
-  negprompt.dispatchEvent(new Event("input", { bubbles: true }));
+  dispatchInputEvent(negprompt);
 }
 
 function createButton(id, innerHTML, onClick) {
@@ -198,12 +204,11 @@ function createButton(id, innerHTML, onClick) {
 }
 
 onUiUpdate(() => {
-  const parentArea = gradioApp().querySelector("#txt2img_toprow");
   const generateBtn = gradioApp().querySelector("#txt2img_generate");
   const actionsColumn = gradioApp().querySelector("#txt2img_actions_column");
   const nai2local = gradioApp().querySelector("#nai2local");
 
-  if (!parentArea || !generateBtn || !actionsColumn || nai2local) return;
+  if (!generateBtn || !actionsColumn || nai2local) return;
 
   generateBtn.addEventListener("click", onClickGenerate);
 
