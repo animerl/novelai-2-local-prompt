@@ -46,7 +46,10 @@ function round(value) {
 }
 function convert(input) {
   const re_attention = /\{|\[|\}|\]|[^\{\}\[\]]+/gmu;
-  let text = input.replaceAll("(", "\\(").replaceAll(")", "\\)").replace(/\\{2,}(\(|\))/gim,'\\$1');
+  let text = input
+    .replaceAll("(", "\\(")
+    .replaceAll(")", "\\)")
+    .replace(/\\{2,}(\(|\))/gim, "\\$1");
 
   let res = [];
 
@@ -116,6 +119,12 @@ function convert(input) {
   return result;
 }
 
+function dispatchInputEvent(target) {
+  let inputEvent = new Event("input");
+  Object.defineProperty(inputEvent, "target", { value: target });
+  target.dispatchEvent(inputEvent);
+}
+
 function onClickConvert() {
   const default_prompt = "masterpiece, best quality,\n";
   const default_negative =
@@ -131,7 +140,7 @@ function onClickConvert() {
     }
   }
   prompt.value = result;
-  prompt.dispatchEvent(new Event("input", { bubbles: true }));
+  dispatchInputEvent(prompt);
 
   result = "";
   let negprompt = gradioApp().querySelector(
@@ -147,7 +156,7 @@ function onClickConvert() {
     result = default_negative;
   }
   negprompt.value = result;
-  negprompt.dispatchEvent(new Event("input", { bubbles: true }));
+  dispatchInputEvent(negprompt);
 }
 
 function onClickGenerate() {
@@ -168,7 +177,7 @@ function onClickUndo() {
   } else {
     prompt.value = prePrompt;
   }
-  prompt.dispatchEvent(new Event("input", { bubbles: true }));
+  dispatchInputEvent(prompt);
 
   let negprompt = gradioApp().querySelector(
     "#txt2img_neg_prompt > label > textarea"
@@ -180,45 +189,43 @@ function onClickUndo() {
   } else {
     negprompt.value = prenegprompt;
   }
-  negprompt.dispatchEvent(new Event("input", { bubbles: true }));
+  dispatchInputEvent(negprompt);
 }
 
-onUiUpdate(function () {
-  let parentArea = gradioApp().querySelector("#toprow");
-  let generateBtn = gradioApp().querySelector("#txt2img_generate");
-  let beforeElement = gradioApp().querySelector("#roll_col");
+function createButton(id, innerHTML, onClick) {
+  const button = document.createElement("button");
+  button.id = id;
+  button.type = "button";
+  button.innerHTML = innerHTML;
+  button.className = "gr-button gr-button-lg gr-button-secondary";
+  button.style = `padding-left: 0.1em; padding-right: 0em; margin: 0.1em 0;max-height: 2em; max-width: 6em`;
+  button.addEventListener("click", onClick);
+  return button;
+}
 
-  if (parentArea == null || generateBtn == null || beforeElement == null)
-    return;
-  if (gradioApp().querySelector("#nai2local") != null) return;
+onUiUpdate(() => {
+  const generateBtn = gradioApp().querySelector("#txt2img_generate");
+  const actionsColumn = gradioApp().querySelector("#txt2img_actions_column");
+  const nai2local = gradioApp().querySelector("#nai2local");
+
+  if (!generateBtn || !actionsColumn || nai2local) return;
 
   generateBtn.addEventListener("click", onClickGenerate);
 
-  let nai2LocalArea = document.createElement("div");
+  const nai2LocalArea = document.createElement("div");
   nai2LocalArea.id = "nai2local";
-  nai2LocalArea.className = "overflow-hidden flex flex-col relative col gap-4";
-  nai2LocalArea.style =
-    "min-width: min(110px, 100%); max-width: 120px; flex-grow: 1; padding: 0em; padding-top: 0.4em;";
+  nai2LocalArea.className = "overflow-hidden flex col gap-4";
+  nai2LocalArea.style = "padding: 0.4em 0em";
 
-  let convertBtn = document.createElement("button");
-  convertBtn.id = "nai2localconvert";
-  convertBtn.type = "button";
-  convertBtn.innerHTML = "NAIConvert";
-  convertBtn.className = "gr-button gr-button-lg gr-button-secondary";
-  convertBtn.style =
-    "padding-left: 0.1em; padding-right: 0em; margin: 0.1em 0;max-height: 2em; max-width: 6em";
-  convertBtn.addEventListener("click", onClickConvert);
+  const convertBtn = createButton(
+    "nai2localconvert",
+    "NAIConvert",
+    onClickConvert
+  );
+  const undoBtn = createButton("nai2localUndo", "History", onClickUndo);
+
   nai2LocalArea.appendChild(convertBtn);
-
-  let undoBtn = document.createElement("button");
-  undoBtn.id = "nai2localUndo";
-  undoBtn.type = "button";
-  undoBtn.innerHTML = "History";
-  undoBtn.className = "gr-button gr-button-lg gr-button-secondary";
-  undoBtn.style =
-    "padding-left: 0.1em; padding-right: 0em; margin: 0.1em 0;max-height: 2em; max-width: 6em";
-  undoBtn.addEventListener("click", onClickUndo);
   nai2LocalArea.appendChild(undoBtn);
 
-  parentArea.insertBefore(nai2LocalArea, beforeElement.nextSibling);
+  actionsColumn.append(nai2LocalArea);
 });
